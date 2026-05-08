@@ -12,8 +12,11 @@ st.markdown("AWS-based real-time streaming and anomaly detection dashboard")
 with open("output.json", "r") as f:
     data = json.load(f)
 
-df = pd.DataFrame(data)
-
+# Handle single JSON object
+if isinstance(data, dict):
+    df = pd.DataFrame([data])
+else:
+    df = pd.DataFrame(data)
 st.subheader("Incoming Data")
 st.dataframe(df)
 
